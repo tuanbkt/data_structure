@@ -63,6 +63,22 @@ void Duyet_RNL (TREE t) {
     }
 }
 
+void Duyet_LRN (TREE t) {
+    if (t != NULL) {
+        Duyet_LRN(t->pLeft);
+        Duyet_LRN(t->pRight);
+        cout << t->data << " ";
+    }
+}
+
+void Duyet_RLN (TREE t) {
+    if (t != NULL) {
+        Duyet_RLN(t->pRight);
+        Duyet_RLN(t->pLeft);
+        cout << t->data << " ";
+    }
+}
+
 void MENU (TREE &t) {
     while (true) {
         cout << "========== MENU ==========" << endl;
@@ -71,6 +87,8 @@ void MENU (TREE &t) {
         cout << "3. Xuat du lieu cay theo NRL" << endl;
         cout << "4. Xuat du lieu cay theo thu tu tang dan (LNR)" << endl;
         cout << "5. Xuat du lieu cay theo thu tu giam dan (RNL)" << endl;
+        cout << "6. Xuat du lieu cay theo LRN" << endl;
+        cout << "7. Xuat du lieu cay theo RLN" << endl;
         cout << "0. Ket thuc" << endl << endl;
 
         int luachon;
@@ -78,7 +96,7 @@ void MENU (TREE &t) {
         cout << "Nhap lua chon: ";
         cin >> luachon;
 
-        if (luachon < 0 || luachon > 5) {
+        if (luachon < 0 || luachon > 7) {
             cout << "Lua chon khong hop le" << endl << endl;
             system("pause");
         } else if (luachon == 1) {
@@ -102,6 +120,14 @@ void MENU (TREE &t) {
         } else if (luachon == 5) {
             cout << "Duyet cay theo thu tu giam dan (RNL)" << endl;
             Duyet_RNL(t);
+            cout << endl << endl;
+        } else if (luachon == 6) {
+            cout << "Duyet cay theo LRN" << endl;
+            Duyet_LRN(t);
+            cout << endl << endl;
+        } else if (luachon == 7) {
+            cout << "Duyet cay theo RLN" << endl;
+            Duyet_RLN(t);
             cout << endl << endl;
         } else {
             break;
