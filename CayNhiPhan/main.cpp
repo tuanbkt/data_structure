@@ -79,6 +79,36 @@ void Duyet_RLN (TREE t) {
     }
 }
 
+// ham kiem tra so nguyen to
+bool KiemTraSNT(int x) {
+    if (x < 2) {
+        return false;
+    } else {
+        if(x == 2) {
+            return true;
+        } else {
+            for(int i = 2; i < x; i++) {
+                if (x % i == 0) {
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
+// dem so luong so nguyen to trong cay
+void SoLuongSNT(TREE t, int &dem) {
+    if (t != NULL) {
+        if (KiemTraSNT(t->data)) {
+            dem++;
+        }
+        SoLuongSNT(t->pLeft, dem);
+        SoLuongSNT(t->pRight, dem);
+    }
+}
+
 void MENU (TREE &t) {
     while (true) {
         cout << "========== MENU ==========" << endl;
@@ -89,6 +119,7 @@ void MENU (TREE &t) {
         cout << "5. Xuat du lieu cay theo thu tu giam dan (RNL)" << endl;
         cout << "6. Xuat du lieu cay theo LRN" << endl;
         cout << "7. Xuat du lieu cay theo RLN" << endl;
+        cout << "8. Dem so luong so nguyen to trong cay" << endl;
         cout << "0. Ket thuc" << endl << endl;
 
         int luachon;
@@ -96,9 +127,9 @@ void MENU (TREE &t) {
         cout << "Nhap lua chon: ";
         cin >> luachon;
 
-        if (luachon < 0 || luachon > 7) {
+        if (luachon < 0 || luachon > 8) {
             cout << "Lua chon khong hop le" << endl << endl;
-            system("pause");
+            getchar();
         } else if (luachon == 1) {
             int x;
             cout << "Nhap so nguyen x: ";
@@ -129,6 +160,11 @@ void MENU (TREE &t) {
             cout << "Duyet cay theo RLN" << endl;
             Duyet_RLN(t);
             cout << endl << endl;
+        } else if (luachon == 8) {
+            int dem = 0;
+            SoLuongSNT(t, dem);
+            cout << "So luong so nguyen to trong cay: " << dem;
+            cout << endl << endl;
         } else {
             break;
         }
@@ -141,6 +177,6 @@ int main()
     KhoiTaoCay(t);
     MENU(t);
 
-    system("pause");
+    getchar();
     return 0;
 }
