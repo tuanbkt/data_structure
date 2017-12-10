@@ -109,6 +109,23 @@ void SoLuongSNT(TREE t, int &dem) {
     }
 }
 
+// kiem tra xem phan tu x co ton tai trong cay hay khong
+NODE* TimKiem(TREE t, int x) {
+    if (t == NULL) {
+        return NULL;
+    } else {
+        if (x > t->data) {
+            // duyet qua cay con ben phai neu x > node goc
+            TimKiem(t->pRight, x);
+        } else if (x < t->data) {
+            // duyet qua cay con ben trai neu x < node goc
+            TimKiem(t->pLeft, x);
+        } else {
+            return t; // tra ve gia tri cua node neu x = node goc
+        }
+    }
+}
+
 void MENU (TREE &t) {
     while (true) {
         cout << "========== MENU ==========" << endl;
@@ -120,6 +137,7 @@ void MENU (TREE &t) {
         cout << "6. Xuat du lieu cay theo LRN" << endl;
         cout << "7. Xuat du lieu cay theo RLN" << endl;
         cout << "8. Dem so luong so nguyen to trong cay" << endl;
+        cout << "9. Tim kiem phan tu trong cay" << endl;
         cout << "0. Ket thuc" << endl << endl;
 
         int luachon;
@@ -127,7 +145,7 @@ void MENU (TREE &t) {
         cout << "Nhap lua chon: ";
         cin >> luachon;
 
-        if (luachon < 0 || luachon > 8) {
+        if (luachon < 0 || luachon > 9) {
             cout << "Lua chon khong hop le" << endl << endl;
             getchar();
         } else if (luachon == 1) {
@@ -165,6 +183,18 @@ void MENU (TREE &t) {
             SoLuongSNT(t, dem);
             cout << "So luong so nguyen to trong cay: " << dem;
             cout << endl << endl;
+        } else if (luachon == 9) {
+            int x;
+            cout << "Nhap so nguyen can tim kiem: ";
+            cin >> x;
+
+            NODE *p = TimKiem(t, x);
+
+            if(p == NULL) {
+                cout << "Phan tu " << x << " khong ton tai trong cay" << endl << endl;
+            } else {
+                cout << "Phan tu " << x << " co ton tai trong cay" << endl << endl;
+            }
         } else {
             break;
         }
