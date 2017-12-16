@@ -126,6 +126,67 @@ NODE* TimKiem(TREE t, int x) {
     }
 }
 
+// node co hai con
+void Node_Hai_Con (TREE t) {
+    if (t != NULL) {
+        // kiem tra cos ton tai cay con trai va cay con phai hay khong
+        if (t->pLeft != NULL && t->pRight != NULL) {
+            cout << t->data << "    ";
+        }
+
+        Node_Hai_Con(t->pLeft);
+        Node_Hai_Con(t->pRight);
+    }
+}
+
+// node co mot con
+void Node_Mot_Con (TREE t) {
+    if (t != NULL) {
+        // kiem tra cos ton tai cay con trai va cay con phai hay khong
+        if ((t->pLeft != NULL && t->pRight == NULL) || (t->pLeft == NULL && t->pRight != NULL)) {
+            cout << t->data << "    ";
+        }
+
+        Node_Mot_Con(t->pLeft);
+        Node_Mot_Con(t->pRight);
+    }
+}
+
+// node la
+void Node_La (TREE t) {
+    if (t != NULL) {
+        // kiem tra cos ton tai cay con trai va cay con phai hay khong
+        if (t->pLeft == NULL && t->pRight == NULL) {
+            cout << t->data << "    ";
+        }
+
+        Node_La(t->pLeft);
+        Node_La(t->pRight);
+    }
+}
+
+// tim gia tri max trong cay
+int Tim_Max (TREE t) {
+    if (t != NULL) {
+        if (t->pRight == NULL) {
+            return t->data;
+        }
+
+        return Tim_Max(t->pRight);
+    }
+}
+
+// tim gia tri min trong cay
+int Tim_Min (TREE t) {
+    if (t != NULL) {
+        if (t->pLeft == NULL) {
+            return t->data;
+        }
+
+        return Tim_Min(t->pLeft);
+    }
+}
+
 void MENU (TREE &t) {
     while (true) {
         cout << "========== MENU ==========" << endl;
@@ -138,6 +199,11 @@ void MENU (TREE &t) {
         cout << "7. Xuat du lieu cay theo RLN" << endl;
         cout << "8. Dem so luong so nguyen to trong cay" << endl;
         cout << "9. Tim kiem phan tu trong cay" << endl;
+        cout << "10. Xuat cac node co 2 con" << endl;
+        cout << "11. Xuat cac node co 1 con" << endl;
+        cout << "12. Xuat cac node la" << endl;
+        cout << "13. Tim gia tri MAX" << endl;
+        cout << "14. Tim gia tri MIN" << endl;
         cout << "0. Ket thuc" << endl << endl;
 
         int luachon;
@@ -145,7 +211,7 @@ void MENU (TREE &t) {
         cout << "Nhap lua chon: ";
         cin >> luachon;
 
-        if (luachon < 0 || luachon > 9) {
+        if (luachon < 0 || luachon > 14) {
             cout << "Lua chon khong hop le" << endl << endl;
             getchar();
         } else if (luachon == 1) {
@@ -195,6 +261,22 @@ void MENU (TREE &t) {
             } else {
                 cout << "Phan tu " << x << " co ton tai trong cay" << endl << endl;
             }
+        } else if (luachon == 10) {
+            cout << "Node co 2 con: ";
+            Node_Hai_Con(t);
+            cout << endl << endl;
+        } else if (luachon == 11) {
+            cout << "Node co 1 con: ";
+            Node_Mot_Con(t);
+            cout << endl << endl;
+        } else if (luachon == 12) {
+            cout << "Node La: ";
+            Node_La(t);
+            cout << endl << endl;
+        } else if (luachon == 13) {
+            cout << "MAX = " << Tim_Max(t) << endl << endl;
+        } else if (luachon == 14) {
+            cout << "MIN = " << Tim_Min(t) << endl << endl;
         } else {
             break;
         }
